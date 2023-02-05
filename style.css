@@ -5,7 +5,7 @@
     position: relative;
   }
   
-  .player {
+  #player {
     width: 50px;
     height: 50px;
     background-color: red;
@@ -13,5 +13,6 @@
     bottom: 0;
     left: 50%;
     transform: translateX(-50%);
+    animation: translate;
   }
   

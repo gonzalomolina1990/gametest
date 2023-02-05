@@ -1,15 +1,23 @@
-const player = document.querySelector('.player');
 let isJumping = false;
 
 function jump() {
   if (!isJumping) {
     isJumping = true;
-    player.style.bottom = '200px';
+
+    gsap.to("#player", {y: "-=200px", duration:2, ease: Power2.easeOut});
+
     setTimeout(() => {
-      player.style.bottom = '0';
-      isJumping = false;
-    }, 500);
+        gsap.to("#player", {y: 0, duration: 1, ease: Power2.easeIn});
+        isJumping = false;
+
+    }, 2000);
   }
 }
 
-player.addEventListener('click', jump);
+setTimeout(() => {
+    const player = document.getElementById('player');
+    player.addEventListener('click', jump);
+}, 2000);
+
+console.log(document.querySelector('.player'));
+
