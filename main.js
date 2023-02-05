@@ -14,9 +14,15 @@ function jump() {
   }
 }
 
+
+
+
+
 setTimeout(() => {
     const player = document.getElementById('player');
     player.addEventListener('click', jump);
+    player.addEventListener('touchstart', jump);
+
 }, 2000);
 
 console.log(document.querySelector('.player'));
