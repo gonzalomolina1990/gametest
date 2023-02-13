@@ -2,14 +2,16 @@ let isJumping = false;
 let score = 0;
 let isFalling = true;
 let isPlaying = true;
+let gravity = 400;
 
 function start() {
   setTimeout(() => {
-    gsap.fromTo("#player", {y: -400, ease: Power2.easeIn}, {y: 0, duration:6, ease: Power2.easeIn});
+    gsap.to("#player", {bottom: "-432px", duration:6, ease: Power2.easeIn});
   }, 100);
+  
 
   setInterval(() => {
-    if (document.getElementById('player').style.transform === "translate(0px, 0px)") {
+    if (document.getElementById('player').style.bottom === "-20px" || document.getElementById('player').style.bottom === "-432px") {
       isPlaying = false;
       checkPlayerPosition();
     }
@@ -21,10 +23,10 @@ function jump() {
     isJumping = true;
     isFalling = false;
 
-    gsap.to("#player", {y: "-=200px", duration:2, ease: Power2.easeOut});
+    gsap.to("#player", {bottom: "+=200px", duration:2, ease: Power2.easeOut});
 
     setTimeout(() => {
-        gsap.to("#player", {y: 0, duration: 1, ease: Power2.easeIn});
+        gsap.to("#player", {bottom: "-432px", duration: 4, ease: Power2.easeIn});
         isJumping = false;
         isFalling = true;
         score += 1;
@@ -39,13 +41,11 @@ function updateScore() {
 
 function checkPlayerPosition() {
   const player = document.getElementById('player');
-  const game = document.getElementById('game');
-  const playerPosition = player.getBoundingClientRect();
-  const gamePosition = game.getBoundingClientRect();
+  const playerPosition = parseInt(player.style.bottom);
 
-  if (document.getElementById('player').style.transform === "translate(0px, 0px)") {
+  if (playerPosition <= -430 || playerPosition >= -20) {
     isPlaying = false;
-    gsap.to("#player", {scale: 0, duration: 0.2, ease: Power2.easeIn, onComplete: function name(params) {
+    gsap.to("#player", {scale: 0, duration: 0.2, ease: Power2.easeIn, onComplete: ()=> {
       player.style.display = "none";
     }});
    
@@ -56,8 +56,7 @@ function checkPlayerPosition() {
     }, 3000);
 
   } else if (isFalling) {
-    gsap.to("#player", {y: "+=10px", duration: 0.1, ease: Power2.easeIn});
-    setTimeout(checkPlayerPosition, 100);
+    gsap.to("#player", {bottom: -432, duration: 5, ease: Power2.easeIn});
   }
 }
 
