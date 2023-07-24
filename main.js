@@ -24,6 +24,12 @@ function jump() {
     isFalling = false;
 
     gsap.to("#player", {bottom: "+=200px", duration:2, ease: Power2.easeOut});
+    
+        gsap.to("#player", {'box-shadow': '10px 10px 80px yellow', duration: 0.2, ease: Power2.easeIn, onComplete: returnColor()})
+    function returnColor() {
+      gsap.to("#player", {'box-shadow': '0 0 15px yellow', duration: 1, ease: Power2.easeOut})
+
+    }
 
     setTimeout(() => {
         gsap.to("#player", {bottom: "-432px", duration: 4, ease: Power2.easeIn});
@@ -36,7 +42,7 @@ function jump() {
 }
 
 function updateScore() {
-  document.querySelector('.score').innerHTML = "Score: " + score;
+  document.querySelector('.score').innerHTML = "SCORE: " + score;
 }
 
 function checkPlayerPosition() {
@@ -49,7 +55,7 @@ function checkPlayerPosition() {
       player.style.display = "none";
     }});
    
-    document.querySelector("#text").innerHTML = "You lost! Your score was " + score;
+    document.querySelector("#text").innerHTML = "YOU LOST!! YOUR SCORE WAS: " + score;
 
     setTimeout(() => {
       window.location.reload();
@@ -65,6 +71,9 @@ setTimeout(() => {
     if (isPlaying) {
       player.addEventListener('click', jump);
       player.addEventListener('touchstart', jump);
+      gsap.to("#player", {filter: 'hue-rotate(180deg)', duration: 0.6, repeat: -1, ease: Power2.easeIn});
+      gsap.to("#game", {background: 'radial-gradient(circle, rgba(239,132,245,1) 0%, rgba(21,38,92,1) 75%, rgba(50,49,51,1) 100%)', duration: 1, yoyo: true, repeat: -1, ease: Power2.easeIn})
+
     } 
 
 }, 2000);
